@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto rotate</title>
+    <link rel="stylesheet" href="css/pannellum.css"/>
+    <script type="text/javascript" src="js/pannellum.js"></script>
+    <style>
+    #panorama {
+        width: 100%;
+        height: 60vw;
+    }
+    </style>
+    
+</head>
+<body>
+
+<div id="panorama"></div>
+<script>
+    var image = "images/ttu-wbb.jpg";
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)){
+        image = "images/ttu-wbb-m.jpg";
+        var mobileDim = document.querySelector("#panorama");
+        mobileDim.style.height = "100vh";   //vh means visual height 
+        mobileDim.style.width = "100vw";    // visual width
+    }
+
+    pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": image,
+        "autoRotate": -5,
+    	"autoLoad": true
+    });
+</script>
+
+</body>
+</html>
+

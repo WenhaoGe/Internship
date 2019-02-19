@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  background-size: cover;
+  background-position: top center;
+}
+html.modal-active, body.modal-active {
+  overflow: hidden;
+}
+
+.header-ttu360 {
+  color: #cc0000;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  line-height: 40px;
+  font-weight: 800;
+}
+.header-ttu360 .hd-2 {
+  color: #666;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  z-index: 1;
+}
+
+.lg-container {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  padding: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.lg-image {
+  display: block;
+  width: 100%;
+}
+
+.lg-hotspot {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  touch-action: manipulation;
+}
+.lg-hotspot:hover, .lg-hotspot:active {
+  z-index: 999;
+}
+.lg-hotspot:hover .lg-hotspot-label, .lg-hotspot:active .lg-hotspot-label {
+  opacity: 1;
+}
+.lg-hotspot:hover .lg-hotspot-button, .lg-hotspot:active .lg-hotspot-button {
+  background-color: #ff6666;
+}
+.lg-hotspot:hover .lg-hotspot-button:after, .lg-hotspot:active .lg-hotspot-button:after {
+  border-color: transparent;
+}
+
+.lg-hotspot-button {
+  height: 24px;
+  width: 24px;
+  padding: 0px;
+  border-radius: 100%;
+  border: 3px solid white;
+  background-color: #cc0000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+}
+.lg-hotspot-button:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1, 1);
+  pointer-events: none;
+  content: "";
+  display: block;
+  height: 26.4px;
+  width: 26.4px;
+  border-radius: 100%;
+  border: 1px solid #cc0000;
+  opacity: 0;
+  transition: border-color 1s linear;
+  animation: button-pulse 4s linear infinite;
+}
+
+.lg-hotspot-label {
+  position: absolute;
+  padding: 0 0 1.1em 0;
+  width: 16em;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.45em;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+.lg-hotspot-label h4 {
+  margin: 0;
+  padding: 0.55em 22.8px;
+  background-color: #666;
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  color: white;
+  border-radius: 2px 2px 0 0;
+}
+.lg-hotspot-label p {
+  margin: 0;
+  padding: 1.1em 22.8px 0 22.8px;
+  color: #333;
+}
+
+.top-left .lg-hotspot-label {
+  top: 12px;
+  right: auto;
+  bottom: auto;
+  left: 12px;
+}
+
+.top-right .lg-hotspot-label {
+  top: 12px;
+  right: 12px;
+  bottom: auto;
+  left: auto;
+}
+
+.bottom-right .lg-hotspot-label {
+  top: auto;
+  right: 12px;
+  bottom: 12px;
+  left: auto;
+}
+
+.bottom-left .lg-hotspot-label {
+  top: auto;
+  right: auto;
+  bottom: 12px;
+  left: 12px;
+}
+
+@keyframes button-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1, 1);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1.5, 1.5);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(2, 2);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2, 2);
+    opacity: 0;
+  }
+}
+#modal-container {
+  position: fixed;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  z-index: 10;
+}
+#modal-container.open {
+  transform: scaleY(0.01) scaleX(0);
+  animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.open .modal-background .modal {
+  transform: scale(0);
+  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.open.out {
+  transform: scale(1);
+  animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container.open.out .modal-background .modal {
+  animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+#modal-container .modal-background {
+  display: table-cell;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  vertical-align: middle;
+}
+#modal-container .modal-background .modal {
+  background: white;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  font-weight: 300;
+  position: relative;
+}
+#modal-container .modal-background .modal iframe {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+}
+#modal-container .modal-background .modal .close_btn {
+  position: absolute;
+  border-radius: 15%;
+  opacity: .8;
+  top: 50%;
+  left: 2px;
+  height: 60px;
+  width: 30px;
+  color: white;
+  background: #555;
+  cursor: pointer;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+  margin-top: -30px;
+  box-shadow: 0 2px 8px 0px rgba(255, 255, 255, 0.3);
+}
+#modal-container .modal-background .modal .close_btn:hover {
+	background: #888;
+	box-shadow: 0 1px 10px 0 rgba(62, 186, 247, 0.6);
+	
+}
+.content {
+  min-height: 100%;
+  height: 100%;
+  background: white;
+  position: relative;
+  z-index: 0;
+}
+.content h1 {
+  padding: 75px 0 30px 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 30px;
+}
+.content .buttons {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+.content .buttons .button {
+  display: inline-block;
+  text-align: center;
+  padding: 10px 15px;
+  margin: 10px;
+  background: red;
+  font-size: 18px;
+  background-color: #efefef;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.content .buttons .button:hover {
+  color: white;
+  background: #009bd5;
+}
+
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.005) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.005) scaleX(0);
+  }
+}
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+@keyframes fadeOut {
+  0% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0);
+  }
+}
